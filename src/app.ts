@@ -14,7 +14,7 @@ const swaggerOptions = {
     info: {
       title: 'Express TypeScript API',
       version: '1.0.0',
-      description: '간단한 Express TypeScript API 예제',
+      description: path.join(__dirname, './routes/*.*'),
     },
     components: {
       schemas: {
