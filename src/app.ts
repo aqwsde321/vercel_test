@@ -2,7 +2,6 @@ import express from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import userRoutes from './routes/userRoutes';
-import path from 'path';
 
 const app = express();
 app.use(express.json());
@@ -16,12 +15,6 @@ const swaggerOptions = {
       version: '1.0.0',
       description: '간단한 Express TypeScript API 예제',
     },
-    servers: [
-      {
-        url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000',
-        description: 'API 서버',
-      },
-    ],
     components: {
       schemas: {
         User: {
@@ -43,15 +36,11 @@ const swaggerOptions = {
       }
     }
   },
-  apis: [path.join(__dirname, 'routes/*.ts')]
+  apis: ['./src/routes/*.ts']
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve);
-app.get('/api-docs', swaggerUi.setup(swaggerDocs, {
-  explorer: true,
-  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css'
-}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // 라우트 설정
 app.use('/api/users', userRoutes);
