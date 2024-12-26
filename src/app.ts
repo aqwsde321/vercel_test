@@ -2,6 +2,7 @@ import express from 'express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import userRoutes from './routes/userRoutes';
+import path from 'path';
 
 const app = express();
 app.use(express.json());
@@ -36,7 +37,7 @@ const swaggerOptions = {
       }
     }
   },
-  apis: ['./src/routes/*.ts']
+  apis: [path.join(__dirname, './routes/*.*')] 
 };
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
