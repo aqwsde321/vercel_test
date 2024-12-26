@@ -15,6 +15,12 @@ const swaggerOptions = {
       version: '1.0.0',
       description: '간단한 Express TypeScript API 예제',
     },
+    servers: [
+      {
+        url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000',
+        description: 'API 서버',
+      },
+    ],
     components: {
       schemas: {
         User: {
